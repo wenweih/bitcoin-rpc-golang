@@ -197,7 +197,7 @@ func (r rawResponse) result() (result []byte, err error) {
 // provided response channel.
 func (c *Client) handleSendPostMessage(details *sendPostDetails) {
 	jReq := details.jsonRequest
-	log.Printf("Sending command [%s] with id %d", jReq.method, jReq.id)
+	// log.Printf("Sending command [%s] with id %d", jReq.method, jReq.id)
 	httpResponse, err := c.httpClient.Do(details.httpRequest)
 	if err != nil {
 		jReq.responseChan <- &response{err: err}
@@ -329,7 +329,7 @@ func (c *Client) sendPost(jReq *jsonRequest) {
 	}
 	httpReq.SetBasicAuth(user, pass)
 
-	log.Printf("Sending command [%s] with id %d", jReq.method, jReq.id)
+	// log.Printf("Sending command [%s] with id %d", jReq.method, jReq.id)
 	c.sendPostRequest(httpReq, jReq)
 }
 
