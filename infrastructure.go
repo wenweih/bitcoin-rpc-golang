@@ -192,16 +192,6 @@ func (r rawResponse) result() (result []byte, err error) {
 	return r.Result, nil
 }
 
-// disconnectChan returns a copy of the current disconnect channel.  The channel
-// is read protected by the client mutex, and is safe to call while the channel
-// is being reassigned during a reconnect.
-func (c *Client) disconnectChan() <-chan struct{} {
-	c.mtx.Lock()
-	ch := c.disconnect
-	c.mtx.Unlock()
-	return ch
-}
-
 // handleSendPostMessage handles performing the passed HTTP request, reading the
 // result, unmarshalling it, and delivering the unmarshalled result to the
 // provided response channel.
@@ -223,13 +213,9 @@ func (c *Client) handleSendPostMessage(details *sendPostDetails) {
 		return
 	}
 
-	// Try to unmarshal the response as a regular JSON-RPC response.
 	var resp rawResponse
 	err = json.Unmarshal(respBytes, &resp)
 	if err != nil {
-		// When the response itself isn't a valid JSON-RPC response
-		// return an error which includes the HTTP status code and raw
-		// response bytes.
 		err = fmt.Errorf("status code: %d, response: %q",
 			httpResponse.StatusCode, string(respBytes))
 		jReq.responseChan <- &response{err: err}
@@ -385,15 +371,6 @@ func (c *Client) sendCmd(cmd interface{}) chan *response {
 	c.sendRequest(jReq)
 
 	return responseChan
-}
-
-// sendCmdAndWait sends the passed command to the associated server, waits
-// for the reply, and returns the result from it.  It will return the error
-// field in the reply if there is one.
-func (c *Client) sendCmdAndWait(cmd interface{}) (interface{}, error) {
-	// Marshal the command to JSON-RPC, send it to the connected server, and
-	// wait for a response on the returned channel.
-	return receiveFuture(c.sendCmd(cmd))
 }
 
 // doShutdown closes the shutdown channel and logs the shutdown unless shutdown
