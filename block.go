@@ -76,8 +76,7 @@ func (r FutureGetBlockVerboseTxResult) Receive() (*rpcproto.GetBlockVerboseTxRes
 	}
 
 	var blockResult rpcproto.GetBlockVerboseTxResult
-	protojson.Unmarshal(res, &blockResult)
-	// err = json.Unmarshal(res, &blockResult)
+	err = protojson.Unmarshal(res, &blockResult)
 	if err != nil {
 		return nil, err
 	}

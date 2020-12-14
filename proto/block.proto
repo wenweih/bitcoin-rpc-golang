@@ -44,7 +44,8 @@ message Vin {
   uint32 vout = 2;
   string coinbase = 3;
   ScriptSig scriptSig = 4;
-  uint32 sequence = 5;
+  repeated string txinwitness = 5;
+  uint32 sequence = 6;
 }
 
 message ScriptSig {
