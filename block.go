@@ -5,7 +5,6 @@ import (
 
 	"github.com/btcsuite/btcd/btcjson"
 	"github.com/btcsuite/btcd/chaincfg/chainhash"
-	"google.golang.org/protobuf/encoding/protojson"
 
 	rpcproto "github.com/wenweih/bitcoin-rpc-golang/proto"
 )
@@ -76,7 +75,7 @@ func (r FutureGetBlockVerboseTxResult) Receive() (*rpcproto.GetBlockVerboseTxRes
 	}
 
 	var blockResult rpcproto.GetBlockVerboseTxResult
-	err = protojson.Unmarshal(res, &blockResult)
+	err = json.Unmarshal(res, &blockResult)
 	if err != nil {
 		return nil, err
 	}
