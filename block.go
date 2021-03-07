@@ -98,7 +98,7 @@ func (c *Client) GetBlockVerboseTxAsync(blockHash *chainhash.Hash) FutureGetBloc
 	//
 	// If verbosity is 2, returns an Object with information about block
 	// and information about each transaction.
-	cmd := btcjson.NewGetBlockCmd(hash, btcjson.Int(3))
+	cmd := btcjson.NewGetBlockCmd(hash, btcjson.Int(2))
 	return FutureGetBlockVerboseTxResult{
 		client:   c,
 		hash:     hash,
