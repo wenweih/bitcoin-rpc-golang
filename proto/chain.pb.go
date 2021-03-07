@@ -30,20 +30,20 @@ type GetBlockChainInfoResult struct {
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
-	Chain                string     `protobuf:"bytes,1,opt,name=chain,proto3" json:"chain,omitempty"`
-	Blocks               int32      `protobuf:"varint,2,opt,name=blocks,proto3" json:"blocks,omitempty"`
-	Headers              int32      `protobuf:"varint,3,opt,name=headers,proto3" json:"headers,omitempty"`
-	Bestblockhash        string     `protobuf:"bytes,4,opt,name=bestblockhash,proto3" json:"bestblockhash,omitempty"`
-	Difficulty           float64    `protobuf:"fixed64,5,opt,name=difficulty,proto3" json:"difficulty,omitempty"`
-	Mediantime           int64      `protobuf:"varint,6,opt,name=mediantime,proto3" json:"mediantime,omitempty"`
-	Verificationprogress float64    `protobuf:"fixed64,7,opt,name=verificationprogress,proto3" json:"verificationprogress,omitempty"`
-	Initialblockdownload bool       `protobuf:"varint,8,opt,name=initialblockdownload,proto3" json:"initialblockdownload,omitempty"`
-	SizeOnDisk           int64      `protobuf:"varint,9,opt,name=size_on_disk,json=sizeOnDisk,proto3" json:"size_on_disk,omitempty"`
-	Pruned               bool       `protobuf:"varint,10,opt,name=pruned,proto3" json:"pruned,omitempty"`
-	Pruneheight          int32      `protobuf:"varint,11,opt,name=pruneheight,proto3" json:"pruneheight,omitempty"`
-	Chainwork            string     `protobuf:"bytes,12,opt,name=chainwork,proto3" json:"chainwork,omitempty"`
-	Softforks            *SoftForks `protobuf:"bytes,13,opt,name=softforks,proto3" json:"softforks,omitempty"`
-	Warnings             string     `protobuf:"bytes,14,opt,name=warnings,proto3" json:"warnings,omitempty"`
+	Chain                string       `protobuf:"bytes,1,opt,name=chain,proto3" json:"chain,omitempty"`
+	Blocks               int32        `protobuf:"varint,2,opt,name=blocks,proto3" json:"blocks,omitempty"`
+	Headers              int32        `protobuf:"varint,3,opt,name=headers,proto3" json:"headers,omitempty"`
+	Bestblockhash        string       `protobuf:"bytes,4,opt,name=bestblockhash,proto3" json:"bestblockhash,omitempty"`
+	Difficulty           float64      `protobuf:"fixed64,5,opt,name=difficulty,proto3" json:"difficulty,omitempty"`
+	Mediantime           int64        `protobuf:"varint,6,opt,name=mediantime,proto3" json:"mediantime,omitempty"`
+	Verificationprogress float64      `protobuf:"fixed64,7,opt,name=verificationprogress,proto3" json:"verificationprogress,omitempty"`
+	Initialblockdownload bool         `protobuf:"varint,8,opt,name=initialblockdownload,proto3" json:"initialblockdownload,omitempty"`
+	SizeOnDisk           int64        `protobuf:"varint,9,opt,name=size_on_disk,json=sizeOnDisk,proto3" json:"size_on_disk,omitempty"`
+	Pruned               bool         `protobuf:"varint,10,opt,name=pruned,proto3" json:"pruned,omitempty"`
+	Pruneheight          int32        `protobuf:"varint,11,opt,name=pruneheight,proto3" json:"pruneheight,omitempty"`
+	Chainwork            string       `protobuf:"bytes,12,opt,name=chainwork,proto3" json:"chainwork,omitempty"`
+	Softforks            []*SoftForks `protobuf:"bytes,13,rep,name=softforks,proto3" json:"softforks,omitempty"`
+	Warnings             string       `protobuf:"bytes,14,opt,name=warnings,proto3" json:"warnings,omitempty"`
 }
 
 func (x *GetBlockChainInfoResult) Reset() {
@@ -162,7 +162,7 @@ func (x *GetBlockChainInfoResult) GetChainwork() string {
 	return ""
 }
 
-func (x *GetBlockChainInfoResult) GetSoftforks() *SoftForks {
+func (x *GetBlockChainInfoResult) GetSoftforks() []*SoftForks {
 	if x != nil {
 		return x.Softforks
 	}
@@ -176,18 +176,18 @@ func (x *GetBlockChainInfoResult) GetWarnings() string {
 	return ""
 }
 
-type SoftForkDescription struct {
+type SoftForks struct {
 	state         protoimpl.MessageState
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
-	ID      string  `protobuf:"bytes,1,opt,name=ID,proto3" json:"ID,omitempty"`
-	Version uint32  `protobuf:"varint,2,opt,name=Version,proto3" json:"Version,omitempty"`
-	Reject  *Reject `protobuf:"bytes,3,opt,name=Reject,proto3" json:"Reject,omitempty"`
+	Id      string  `protobuf:"bytes,1,opt,name=id,proto3" json:"id,omitempty"`
+	Version uint32  `protobuf:"varint,2,opt,name=version,proto3" json:"version,omitempty"`
+	Reject  *Reject `protobuf:"bytes,3,opt,name=reject,proto3" json:"reject,omitempty"`
 }
 
-func (x *SoftForkDescription) Reset() {
-	*x = SoftForkDescription{}
+func (x *SoftForks) Reset() {
+	*x = SoftForks{}
 	if protoimpl.UnsafeEnabled {
 		mi := &file_chain_proto_msgTypes[1]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
@@ -195,13 +195,13 @@ func (x *SoftForkDescription) Reset() {
 	}
 }
 
-func (x *SoftForkDescription) String() string {
+func (x *SoftForks) String() string {
 	return protoimpl.X.MessageStringOf(x)
 }
 
-func (*SoftForkDescription) ProtoMessage() {}
+func (*SoftForks) ProtoMessage() {}
 
-func (x *SoftForkDescription) ProtoReflect() protoreflect.Message {
+func (x *SoftForks) ProtoReflect() protoreflect.Message {
 	mi := &file_chain_proto_msgTypes[1]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
@@ -213,26 +213,26 @@ func (x *SoftForkDescription) ProtoReflect() protoreflect.Message {
 	return mi.MessageOf(x)
 }
 
-// Deprecated: Use SoftForkDescription.ProtoReflect.Descriptor instead.
-func (*SoftForkDescription) Descriptor() ([]byte, []int) {
+// Deprecated: Use SoftForks.ProtoReflect.Descriptor instead.
+func (*SoftForks) Descriptor() ([]byte, []int) {
 	return file_chain_proto_rawDescGZIP(), []int{1}
 }
 
-func (x *SoftForkDescription) GetID() string {
+func (x *SoftForks) GetId() string {
 	if x != nil {
-		return x.ID
+		return x.Id
 	}
 	return ""
 }
 
-func (x *SoftForkDescription) GetVersion() uint32 {
+func (x *SoftForks) GetVersion() uint32 {
 	if x != nil {
 		return x.Version
 	}
 	return 0
 }
 
-func (x *SoftForkDescription) GetReject() *Reject {
+func (x *SoftForks) GetReject() *Reject {
 	if x != nil {
 		return x.Reject
 	}
@@ -244,7 +244,7 @@ type Reject struct {
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
-	Status bool `protobuf:"varint,1,opt,name=Status,proto3" json:"Status,omitempty"`
+	Status bool `protobuf:"varint,1,opt,name=status,proto3" json:"status,omitempty"`
 }
 
 func (x *Reject) Reset() {
@@ -286,235 +286,6 @@ func (x *Reject) GetStatus() bool {
 	return false
 }
 
-type Bip9SoftForkDescription struct {
-	state         protoimpl.MessageState
-	sizeCache     protoimpl.SizeCache
-	unknownFields protoimpl.UnknownFields
-
-	Status     string `protobuf:"bytes,1,opt,name=Status,proto3" json:"Status,omitempty"`
-	Bit        uint32 `protobuf:"varint,2,opt,name=Bit,proto3" json:"Bit,omitempty"`
-	StartTime1 int64  `protobuf:"varint,3,opt,name=StartTime1,proto3" json:"StartTime1,omitempty"`
-	StartTime2 int64  `protobuf:"varint,4,opt,name=StartTime2,proto3" json:"StartTime2,omitempty"`
-	Timeout    int64  `protobuf:"varint,5,opt,name=Timeout,proto3" json:"Timeout,omitempty"`
-	Since      int32  `protobuf:"varint,6,opt,name=Since,proto3" json:"Since,omitempty"`
-}
-
-func (x *Bip9SoftForkDescription) Reset() {
-	*x = Bip9SoftForkDescription{}
-	if protoimpl.UnsafeEnabled {
-		mi := &file_chain_proto_msgTypes[3]
-		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
-		ms.StoreMessageInfo(mi)
-	}
-}
-
-func (x *Bip9SoftForkDescription) String() string {
-	return protoimpl.X.MessageStringOf(x)
-}
-
-func (*Bip9SoftForkDescription) ProtoMessage() {}
-
-func (x *Bip9SoftForkDescription) ProtoReflect() protoreflect.Message {
-	mi := &file_chain_proto_msgTypes[3]
-	if protoimpl.UnsafeEnabled && x != nil {
-		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
-		if ms.LoadMessageInfo() == nil {
-			ms.StoreMessageInfo(mi)
-		}
-		return ms
-	}
-	return mi.MessageOf(x)
-}
-
-// Deprecated: Use Bip9SoftForkDescription.ProtoReflect.Descriptor instead.
-func (*Bip9SoftForkDescription) Descriptor() ([]byte, []int) {
-	return file_chain_proto_rawDescGZIP(), []int{3}
-}
-
-func (x *Bip9SoftForkDescription) GetStatus() string {
-	if x != nil {
-		return x.Status
-	}
-	return ""
-}
-
-func (x *Bip9SoftForkDescription) GetBit() uint32 {
-	if x != nil {
-		return x.Bit
-	}
-	return 0
-}
-
-func (x *Bip9SoftForkDescription) GetStartTime1() int64 {
-	if x != nil {
-		return x.StartTime1
-	}
-	return 0
-}
-
-func (x *Bip9SoftForkDescription) GetStartTime2() int64 {
-	if x != nil {
-		return x.StartTime2
-	}
-	return 0
-}
-
-func (x *Bip9SoftForkDescription) GetTimeout() int64 {
-	if x != nil {
-		return x.Timeout
-	}
-	return 0
-}
-
-func (x *Bip9SoftForkDescription) GetSince() int32 {
-	if x != nil {
-		return x.Since
-	}
-	return 0
-}
-
-type SoftForks struct {
-	state         protoimpl.MessageState
-	sizeCache     protoimpl.SizeCache
-	unknownFields protoimpl.UnknownFields
-
-	Bip34  *UnifiedSoftForks `protobuf:"bytes,1,opt,name=bip34,proto3" json:"bip34,omitempty"`
-	Bip66  *UnifiedSoftForks `protobuf:"bytes,2,opt,name=bip66,proto3" json:"bip66,omitempty"`
-	Bip65  *UnifiedSoftForks `protobuf:"bytes,3,opt,name=bip65,proto3" json:"bip65,omitempty"`
-	Csv    *UnifiedSoftForks `protobuf:"bytes,4,opt,name=csv,proto3" json:"csv,omitempty"`
-	Segwit *UnifiedSoftForks `protobuf:"bytes,5,opt,name=segwit,proto3" json:"segwit,omitempty"`
-}
-
-func (x *SoftForks) Reset() {
-	*x = SoftForks{}
-	if protoimpl.UnsafeEnabled {
-		mi := &file_chain_proto_msgTypes[4]
-		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
-		ms.StoreMessageInfo(mi)
-	}
-}
-
-func (x *SoftForks) String() string {
-	return protoimpl.X.MessageStringOf(x)
-}
-
-func (*SoftForks) ProtoMessage() {}
-
-func (x *SoftForks) ProtoReflect() protoreflect.Message {
-	mi := &file_chain_proto_msgTypes[4]
-	if protoimpl.UnsafeEnabled && x != nil {
-		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
-		if ms.LoadMessageInfo() == nil {
-			ms.StoreMessageInfo(mi)
-		}
-		return ms
-	}
-	return mi.MessageOf(x)
-}
-
-// Deprecated: Use SoftForks.ProtoReflect.Descriptor instead.
-func (*SoftForks) Descriptor() ([]byte, []int) {
-	return file_chain_proto_rawDescGZIP(), []int{4}
-}
-
-func (x *SoftForks) GetBip34() *UnifiedSoftForks {
-	if x != nil {
-		return x.Bip34
-	}
-	return nil
-}
-
-func (x *SoftForks) GetBip66() *UnifiedSoftForks {
-	if x != nil {
-		return x.Bip66
-	}
-	return nil
-}
-
-func (x *SoftForks) GetBip65() *UnifiedSoftForks {
-	if x != nil {
-		return x.Bip65
-	}
-	return nil
-}
-
-func (x *SoftForks) GetCsv() *UnifiedSoftForks {
-	if x != nil {
-		return x.Csv
-	}
-	return nil
-}
-
-func (x *SoftForks) GetSegwit() *UnifiedSoftForks {
-	if x != nil {
-		return x.Segwit
-	}
-	return nil
-}
-
-type UnifiedSoftForks struct {
-	state         protoimpl.MessageState
-	sizeCache     protoimpl.SizeCache
-	unknownFields protoimpl.UnknownFields
-
-	Type   string `protobuf:"bytes,1,opt,name=type,proto3" json:"type,omitempty"`
-	Active bool   `protobuf:"varint,2,opt,name=active,proto3" json:"active,omitempty"`
-	Height int32  `protobuf:"varint,3,opt,name=height,proto3" json:"height,omitempty"`
-}
-
-func (x *UnifiedSoftForks) Reset() {
-	*x = UnifiedSoftForks{}
-	if protoimpl.UnsafeEnabled {
-		mi := &file_chain_proto_msgTypes[5]
-		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
-		ms.StoreMessageInfo(mi)
-	}
-}
-
-func (x *UnifiedSoftForks) String() string {
-	return protoimpl.X.MessageStringOf(x)
-}
-
-func (*UnifiedSoftForks) ProtoMessage() {}
-
-func (x *UnifiedSoftForks) ProtoReflect() protoreflect.Message {
-	mi := &file_chain_proto_msgTypes[5]
-	if protoimpl.UnsafeEnabled && x != nil {
-		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
-		if ms.LoadMessageInfo() == nil {
-			ms.StoreMessageInfo(mi)
-		}
-		return ms
-	}
-	return mi.MessageOf(x)
-}
-
-// Deprecated: Use UnifiedSoftForks.ProtoReflect.Descriptor instead.
-func (*UnifiedSoftForks) Descriptor() ([]byte, []int) {
-	return file_chain_proto_rawDescGZIP(), []int{5}
-}
-
-func (x *UnifiedSoftForks) GetType() string {
-	if x != nil {
-		return x.Type
-	}
-	return ""
-}
-
-func (x *UnifiedSoftForks) GetActive() bool {
-	if x != nil {
-		return x.Active
-	}
-	return false
-}
-
-func (x *UnifiedSoftForks) GetHeight() int32 {
-	if x != nil {
-		return x.Height
-	}
-	return 0
-}
-
 var File_chain_proto protoreflect.FileDescriptor
 
 var file_chain_proto_rawDesc = []byte{
@@ -547,52 +318,19 @@ var file_chain_proto_rawDesc = []byte{
 	0x68, 0x74, 0x12, 0x1c, 0x0a, 0x09, 0x63, 0x68, 0x61, 0x69, 0x6e, 0x77, 0x6f, 0x72, 0x6b, 0x18,
 	0x0c, 0x20, 0x01, 0x28, 0x09, 0x52, 0x09, 0x63, 0x68, 0x61, 0x69, 0x6e, 0x77, 0x6f, 0x72, 0x6b,
 	0x12, 0x2e, 0x0a, 0x09, 0x73, 0x6f, 0x66, 0x74, 0x66, 0x6f, 0x72, 0x6b, 0x73, 0x18, 0x0d, 0x20,
-	0x01, 0x28, 0x0b, 0x32, 0x10, 0x2e, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0x2e, 0x53, 0x6f, 0x66, 0x74,
+	0x03, 0x28, 0x0b, 0x32, 0x10, 0x2e, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0x2e, 0x53, 0x6f, 0x66, 0x74,
 	0x46, 0x6f, 0x72, 0x6b, 0x73, 0x52, 0x09, 0x73, 0x6f, 0x66, 0x74, 0x66, 0x6f, 0x72, 0x6b, 0x73,
 	0x12, 0x1a, 0x0a, 0x08, 0x77, 0x61, 0x72, 0x6e, 0x69, 0x6e, 0x67, 0x73, 0x18, 0x0e, 0x20, 0x01,
-	0x28, 0x09, 0x52, 0x08, 0x77, 0x61, 0x72, 0x6e, 0x69, 0x6e, 0x67, 0x73, 0x22, 0x66, 0x0a, 0x13,
-	0x53, 0x6f, 0x66, 0x74, 0x46, 0x6f, 0x72, 0x6b, 0x44, 0x65, 0x73, 0x63, 0x72, 0x69, 0x70, 0x74,
-	0x69, 0x6f, 0x6e, 0x12, 0x0e, 0x0a, 0x02, 0x49, 0x44, 0x18, 0x01, 0x20, 0x01, 0x28, 0x09, 0x52,
-	0x02, 0x49, 0x44, 0x12, 0x18, 0x0a, 0x07, 0x56, 0x65, 0x72, 0x73, 0x69, 0x6f, 0x6e, 0x18, 0x02,
-	0x20, 0x01, 0x28, 0x0d, 0x52, 0x07, 0x56, 0x65, 0x72, 0x73, 0x69, 0x6f, 0x6e, 0x12, 0x25, 0x0a,
-	0x06, 0x52, 0x65, 0x6a, 0x65, 0x63, 0x74, 0x18, 0x03, 0x20, 0x01, 0x28, 0x0b, 0x32, 0x0d, 0x2e,
-	0x70, 0x72, 0x6f, 0x74, 0x6f, 0x2e, 0x52, 0x65, 0x6a, 0x65, 0x63, 0x74, 0x52, 0x06, 0x52, 0x65,
-	0x6a, 0x65, 0x63, 0x74, 0x22, 0x20, 0x0a, 0x06, 0x52, 0x65, 0x6a, 0x65, 0x63, 0x74, 0x12, 0x16,
-	0x0a, 0x06, 0x53, 0x74, 0x61, 0x74, 0x75, 0x73, 0x18, 0x01, 0x20, 0x01, 0x28, 0x08, 0x52, 0x06,
-	0x53, 0x74, 0x61, 0x74, 0x75, 0x73, 0x22, 0xb3, 0x01, 0x0a, 0x17, 0x42, 0x69, 0x70, 0x39, 0x53,
-	0x6f, 0x66, 0x74, 0x46, 0x6f, 0x72, 0x6b, 0x44, 0x65, 0x73, 0x63, 0x72, 0x69, 0x70, 0x74, 0x69,
-	0x6f, 0x6e, 0x12, 0x16, 0x0a, 0x06, 0x53, 0x74, 0x61, 0x74, 0x75, 0x73, 0x18, 0x01, 0x20, 0x01,
-	0x28, 0x09, 0x52, 0x06, 0x53, 0x74, 0x61, 0x74, 0x75, 0x73, 0x12, 0x10, 0x0a, 0x03, 0x42, 0x69,
-	0x74, 0x18, 0x02, 0x20, 0x01, 0x28, 0x0d, 0x52, 0x03, 0x42, 0x69, 0x74, 0x12, 0x1e, 0x0a, 0x0a,
-	0x53, 0x74, 0x61, 0x72, 0x74, 0x54, 0x69, 0x6d, 0x65, 0x31, 0x18, 0x03, 0x20, 0x01, 0x28, 0x03,
-	0x52, 0x0a, 0x53, 0x74, 0x61, 0x72, 0x74, 0x54, 0x69, 0x6d, 0x65, 0x31, 0x12, 0x1e, 0x0a, 0x0a,
-	0x53, 0x74, 0x61, 0x72, 0x74, 0x54, 0x69, 0x6d, 0x65, 0x32, 0x18, 0x04, 0x20, 0x01, 0x28, 0x03,
-	0x52, 0x0a, 0x53, 0x74, 0x61, 0x72, 0x74, 0x54, 0x69, 0x6d, 0x65, 0x32, 0x12, 0x18, 0x0a, 0x07,
-	0x54, 0x69, 0x6d, 0x65, 0x6f, 0x75, 0x74, 0x18, 0x05, 0x20, 0x01, 0x28, 0x03, 0x52, 0x07, 0x54,
-	0x69, 0x6d, 0x65, 0x6f, 0x75, 0x74, 0x12, 0x14, 0x0a, 0x05, 0x53, 0x69, 0x6e, 0x63, 0x65, 0x18,
-	0x06, 0x20, 0x01, 0x28, 0x05, 0x52, 0x05, 0x53, 0x69, 0x6e, 0x63, 0x65, 0x22, 0xf4, 0x01, 0x0a,
-	0x09, 0x53, 0x6f, 0x66, 0x74, 0x46, 0x6f, 0x72, 0x6b, 0x73, 0x12, 0x2d, 0x0a, 0x05, 0x62, 0x69,
-	0x70, 0x33, 0x34, 0x18, 0x01, 0x20, 0x01, 0x28, 0x0b, 0x32, 0x17, 0x2e, 0x70, 0x72, 0x6f, 0x74,
-	0x6f, 0x2e, 0x55, 0x6e, 0x69, 0x66, 0x69, 0x65, 0x64, 0x53, 0x6f, 0x66, 0x74, 0x46, 0x6f, 0x72,
-	0x6b, 0x73, 0x52, 0x05, 0x62, 0x69, 0x70, 0x33, 0x34, 0x12, 0x2d, 0x0a, 0x05, 0x62, 0x69, 0x70,
-	0x36, 0x36, 0x18, 0x02, 0x20, 0x01, 0x28, 0x0b, 0x32, 0x17, 0x2e, 0x70, 0x72, 0x6f, 0x74, 0x6f,
-	0x2e, 0x55, 0x6e, 0x69, 0x66, 0x69, 0x65, 0x64, 0x53, 0x6f, 0x66, 0x74, 0x46, 0x6f, 0x72, 0x6b,
-	0x73, 0x52, 0x05, 0x62, 0x69, 0x70, 0x36, 0x36, 0x12, 0x2d, 0x0a, 0x05, 0x62, 0x69, 0x70, 0x36,
-	0x35, 0x18, 0x03, 0x20, 0x01, 0x28, 0x0b, 0x32, 0x17, 0x2e, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0x2e,
-	0x55, 0x6e, 0x69, 0x66, 0x69, 0x65, 0x64, 0x53, 0x6f, 0x66, 0x74, 0x46, 0x6f, 0x72, 0x6b, 0x73,
-	0x52, 0x05, 0x62, 0x69, 0x70, 0x36, 0x35, 0x12, 0x29, 0x0a, 0x03, 0x63, 0x73, 0x76, 0x18, 0x04,
-	0x20, 0x01, 0x28, 0x0b, 0x32, 0x17, 0x2e, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0x2e, 0x55, 0x6e, 0x69,
-	0x66, 0x69, 0x65, 0x64, 0x53, 0x6f, 0x66, 0x74, 0x46, 0x6f, 0x72, 0x6b, 0x73, 0x52, 0x03, 0x63,
-	0x73, 0x76, 0x12, 0x2f, 0x0a, 0x06, 0x73, 0x65, 0x67, 0x77, 0x69, 0x74, 0x18, 0x05, 0x20, 0x01,
-	0x28, 0x0b, 0x32, 0x17, 0x2e, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0x2e, 0x55, 0x6e, 0x69, 0x66, 0x69,
-	0x65, 0x64, 0x53, 0x6f, 0x66, 0x74, 0x46, 0x6f, 0x72, 0x6b, 0x73, 0x52, 0x06, 0x73, 0x65, 0x67,
-	0x77, 0x69, 0x74, 0x22, 0x56, 0x0a, 0x10, 0x55, 0x6e, 0x69, 0x66, 0x69, 0x65, 0x64, 0x53, 0x6f,
-	0x66, 0x74, 0x46, 0x6f, 0x72, 0x6b, 0x73, 0x12, 0x12, 0x0a, 0x04, 0x74, 0x79, 0x70, 0x65, 0x18,
-	0x01, 0x20, 0x01, 0x28, 0x09, 0x52, 0x04, 0x74, 0x79, 0x70, 0x65, 0x12, 0x16, 0x0a, 0x06, 0x61,
-	0x63, 0x74, 0x69, 0x76, 0x65, 0x18, 0x02, 0x20, 0x01, 0x28, 0x08, 0x52, 0x06, 0x61, 0x63, 0x74,
-	0x69, 0x76, 0x65, 0x12, 0x16, 0x0a, 0x06, 0x68, 0x65, 0x69, 0x67, 0x68, 0x74, 0x18, 0x03, 0x20,
-	0x01, 0x28, 0x05, 0x52, 0x06, 0x68, 0x65, 0x69, 0x67, 0x68, 0x74, 0x42, 0x09, 0x5a, 0x07, 0x2e,
-	0x3b, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0x62, 0x06, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0x33,
+	0x28, 0x09, 0x52, 0x08, 0x77, 0x61, 0x72, 0x6e, 0x69, 0x6e, 0x67, 0x73, 0x22, 0x5c, 0x0a, 0x09,
+	0x53, 0x6f, 0x66, 0x74, 0x46, 0x6f, 0x72, 0x6b, 0x73, 0x12, 0x0e, 0x0a, 0x02, 0x69, 0x64, 0x18,
+	0x01, 0x20, 0x01, 0x28, 0x09, 0x52, 0x02, 0x69, 0x64, 0x12, 0x18, 0x0a, 0x07, 0x76, 0x65, 0x72,
+	0x73, 0x69, 0x6f, 0x6e, 0x18, 0x02, 0x20, 0x01, 0x28, 0x0d, 0x52, 0x07, 0x76, 0x65, 0x72, 0x73,
+	0x69, 0x6f, 0x6e, 0x12, 0x25, 0x0a, 0x06, 0x72, 0x65, 0x6a, 0x65, 0x63, 0x74, 0x18, 0x03, 0x20,
+	0x01, 0x28, 0x0b, 0x32, 0x0d, 0x2e, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0x2e, 0x52, 0x65, 0x6a, 0x65,
+	0x63, 0x74, 0x52, 0x06, 0x72, 0x65, 0x6a, 0x65, 0x63, 0x74, 0x22, 0x20, 0x0a, 0x06, 0x52, 0x65,
+	0x6a, 0x65, 0x63, 0x74, 0x12, 0x16, 0x0a, 0x06, 0x73, 0x74, 0x61, 0x74, 0x75, 0x73, 0x18, 0x01,
+	0x20, 0x01, 0x28, 0x08, 0x52, 0x06, 0x73, 0x74, 0x61, 0x74, 0x75, 0x73, 0x42, 0x09, 0x5a, 0x07,
+	0x2e, 0x3b, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0x62, 0x06, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0x33,
 }
 
 var (
@@ -607,28 +345,20 @@ func file_chain_proto_rawDescGZIP() []byte {
 	return file_chain_proto_rawDescData
 }
 
-var file_chain_proto_msgTypes = make([]protoimpl.MessageInfo, 6)
+var file_chain_proto_msgTypes = make([]protoimpl.MessageInfo, 3)
 var file_chain_proto_goTypes = []interface{}{
 	(*GetBlockChainInfoResult)(nil), // 0: proto.GetBlockChainInfoResult
-	(*SoftForkDescription)(nil),     // 1: proto.SoftForkDescription
+	(*SoftForks)(nil),               // 1: proto.SoftForks
 	(*Reject)(nil),                  // 2: proto.Reject
-	(*Bip9SoftForkDescription)(nil), // 3: proto.Bip9SoftForkDescription
-	(*SoftForks)(nil),               // 4: proto.SoftForks
-	(*UnifiedSoftForks)(nil),        // 5: proto.UnifiedSoftForks
 }
 var file_chain_proto_depIdxs = []int32{
-	4, // 0: proto.GetBlockChainInfoResult.softforks:type_name -> proto.SoftForks
-	2, // 1: proto.SoftForkDescription.Reject:type_name -> proto.Reject
-	5, // 2: proto.SoftForks.bip34:type_name -> proto.UnifiedSoftForks
-	5, // 3: proto.SoftForks.bip66:type_name -> proto.UnifiedSoftForks
-	5, // 4: proto.SoftForks.bip65:type_name -> proto.UnifiedSoftForks
-	5, // 5: proto.SoftForks.csv:type_name -> proto.UnifiedSoftForks
-	5, // 6: proto.SoftForks.segwit:type_name -> proto.UnifiedSoftForks
-	7, // [7:7] is the sub-list for method output_type
-	7, // [7:7] is the sub-list for method input_type
-	7, // [7:7] is the sub-list for extension type_name
-	7, // [7:7] is the sub-list for extension extendee
-	0, // [0:7] is the sub-list for field type_name
+	1, // 0: proto.GetBlockChainInfoResult.softforks:type_name -> proto.SoftForks
+	2, // 1: proto.SoftForks.reject:type_name -> proto.Reject
+	2, // [2:2] is the sub-list for method output_type
+	2, // [2:2] is the sub-list for method input_type
+	2, // [2:2] is the sub-list for extension type_name
+	2, // [2:2] is the sub-list for extension extendee
+	0, // [0:2] is the sub-list for field type_name
 }
 
 func init() { file_chain_proto_init() }
@@ -650,7 +380,7 @@ func file_chain_proto_init() {
 			}
 		}
 		file_chain_proto_msgTypes[1].Exporter = func(v interface{}, i int) interface{} {
-			switch v := v.(*SoftForkDescription); i {
+			switch v := v.(*SoftForks); i {
 			case 0:
 				return &v.state
 			case 1:
@@ -673,42 +403,6 @@ func file_chain_proto_init() {
 				return nil
 			}
 		}
-		file_chain_proto_msgTypes[3].Exporter = func(v interface{}, i int) interface{} {
-			switch v := v.(*Bip9SoftForkDescription); i {
-			case 0:
-				return &v.state
-			case 1:
-				return &v.sizeCache
-			case 2:
-				return &v.unknownFields
-			default:
-				return nil
-			}
-		}
-		file_chain_proto_msgTypes[4].Exporter = func(v interface{}, i int) interface{} {
-			switch v := v.(*SoftForks); i {
-			case 0:
-				return &v.state
-			case 1:
-				return &v.sizeCache
-			case 2:
-				return &v.unknownFields
-			default:
-				return nil
-			}
-		}
-		file_chain_proto_msgTypes[5].Exporter = func(v interface{}, i int) interface{} {
-			switch v := v.(*UnifiedSoftForks); i {
-			case 0:
-				return &v.state
-			case 1:
-				return &v.sizeCache
-			case 2:
-				return &v.unknownFields
-			default:
-				return nil
-			}
-		}
 	}
 	type x struct{}
 	out := protoimpl.TypeBuilder{
@@ -716,7 +410,7 @@ func file_chain_proto_init() {
 			GoPackagePath: reflect.TypeOf(x{}).PkgPath(),
 			RawDescriptor: file_chain_proto_rawDesc,
 			NumEnums:      0,
-			NumMessages:   6,
+			NumMessages:   3,
 			NumExtensions: 0,
 			NumServices:   0,
 		},
