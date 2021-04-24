@@ -25,6 +25,7 @@ const (
 // of the legacy proto package is being used.
 const _ = proto.ProtoPackageIsVersion4
 
+//easyjson:json
 type GetBlockVerboseTxResult struct {
 	state         protoimpl.MessageState
 	sizeCache     protoimpl.SizeCache
@@ -216,6 +217,7 @@ func (x *GetBlockVerboseTxResult) GetNextblockhash() string {
 	return ""
 }
 
+//easyjson:json
 type Transaction struct {
 	state         protoimpl.MessageState
 	sizeCache     protoimpl.SizeCache
@@ -335,6 +337,7 @@ func (x *Transaction) GetHex() string {
 	return ""
 }
 
+//easyjson:json
 type Vin struct {
 	state         protoimpl.MessageState
 	sizeCache     protoimpl.SizeCache
@@ -422,6 +425,7 @@ func (x *Vin) GetSequence() uint32 {
 	return 0
 }
 
+//easyjson:json
 type ScriptSig struct {
 	state         protoimpl.MessageState
 	sizeCache     protoimpl.SizeCache
@@ -477,6 +481,7 @@ func (x *ScriptSig) GetHex() string {
 	return ""
 }
 
+//easyjson:json
 type Vout struct {
 	state         protoimpl.MessageState
 	sizeCache     protoimpl.SizeCache
@@ -540,6 +545,7 @@ func (x *Vout) GetScriptPubKey() *ScriptPubKey {
 	return nil
 }
 
+//easyjson:json
 type ScriptPubKey struct {
 	state         protoimpl.MessageState
 	sizeCache     protoimpl.SizeCache
