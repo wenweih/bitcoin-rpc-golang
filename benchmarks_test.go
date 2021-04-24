@@ -7,7 +7,6 @@ import (
 	"os"
 	"testing"
 
-	"github.com/btcsuite/btcd/btcjson"
 	rpcproto "github.com/wenweih/bitcoin-rpc-golang/proto"
 	"google.golang.org/protobuf/encoding/protojson"
 )
@@ -27,7 +26,7 @@ func BenchmarkJsonUnmarshal(b *testing.B) {
 	b.ReportAllocs()
 	b.ResetTimer()
 	for i := 0; i < b.N; i++ {
-		var blockResult btcjson.GetBlockVerboseTxResult
+		var blockResult rpcproto.GetBlockVerboseTxResult
 		err := json.Unmarshal(byteValue, &blockResult)
 		if err != nil {
 			b.Fatal(err)
@@ -42,6 +41,19 @@ func BenchmarkProtojsonUnmarshal(b *testing.B) {
 	for i := 0; i < b.N; i++ {
 		var blockResult rpcproto.GetBlockVerboseTxResult
 		err := protojson.Unmarshal(byteValue, &blockResult)
+		if err != nil {
+			b.Fatal(err)
+		}
+	}
+}
+
+func BenchmarkEasyjsonUnmarshal(b *testing.B) {
+	byteValue := readTestData()
+	b.ReportAllocs()
+	b.ResetTimer()
+	for i := 0; i < b.N; i++ {
+		var blockResult rpcproto.GetBlockVerboseTxResult
+		err := blockResult.UnmarshalJSON(byteValue)
 		if err != nil {
 			b.Fatal(err)
 		}
