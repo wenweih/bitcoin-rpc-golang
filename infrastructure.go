@@ -18,6 +18,7 @@ import (
 
 	"github.com/btcsuite/btcd/btcjson"
 	"github.com/btcsuite/btcd/chaincfg"
+	"github.com/wenweih/bitcoin-rpc-golang/proto"
 )
 
 var (
@@ -213,16 +214,15 @@ func (c *Client) handleSendPostMessage(details *sendPostDetails) {
 		return
 	}
 
-	var resp rawResponse
-	err = json.Unmarshal(respBytes, &resp)
+	resp := &proto.EasyResponse{}
+	err = resp.UnmarshalJSON(respBytes)
 	if err != nil {
 		err = fmt.Errorf("status code: %d, response: %q",
 			httpResponse.StatusCode, string(respBytes))
 		jReq.responseChan <- &response{err: err}
 		return
 	}
-
-	res, err := resp.result()
+	res, err := resp.ParserResult()
 	jReq.responseChan <- &response{result: res, err: err}
 }
 
